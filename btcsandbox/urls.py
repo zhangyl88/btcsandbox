@@ -7,9 +7,15 @@ from django.conf.urls.static import static
 urlpatterns = [
     # sandbox backdoor
     path('admin/', admin.site.urls),
-    
+
     # account
     path('v1/account/', include('account.urls', namespace='account')),
+
+    # wallet
+    path('v1/wallet/', include('wallet.urls', namespace='wallet')),
+
+    # profile
+    path('v1/profile', include('uprofile.urls', namespace='uprofile'))
 ]
 
 # Developemntal Purposes [Media Directory]
