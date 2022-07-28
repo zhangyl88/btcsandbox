@@ -158,7 +158,7 @@ class PasswordOTP(models.Model):
         verbose_name_plural = 'Password OTPs'
 
     def __str__(self):
-        return f'{self.user.uci}~{self.code}'
+        return f'{self.user.username}~{self.code}'
 
 
 # Preferences

@@ -45,10 +45,10 @@ class CreateView(APIView):
 
             mail.attach_alternative(body, 'text/html')
             
+            token = Token.objects.get(user=user)
+            
             try:
-                # mail.send()
-
-                token = Token.objects.get(user=user)
+                mail.send()
 
                 response_data['status'] = status.HTTP_201_CREATED
                 response_data['token'] = token.key
@@ -115,7 +115,7 @@ class ConfirmView(APIView):
                     mail.attach_alternative(body, 'text/html')
 
                     try:
-                        # mail.send()
+                        mail.send()
 
                         return Response(data=response_data, status=response_data['status'])
                     
@@ -170,7 +170,7 @@ class ResendConfirm(APIView):
                 if email == obj.email:
                     # Resend Activations
                     try:
-                        # mail.send()
+                        mail.send()
 
                         response_data['status'] = status.HTTP_200_OK
                         response_data['success'] = True
@@ -198,12 +198,13 @@ class ResendConfirm(APIView):
                         return Response(data=response_data, status=response_data['status'])
                         
                     else:
-                        # Update Email
-                        set_email(email, obj)
 
-                        # Resend Activations
                         try:
-                            # mail.send()
+                            # Resend Activations
+                            mail.send()
+                            
+                            # Update Email
+                            set_email(email, obj)
 
                             response_data['status'] = status.HTTP_200_OK
                             response_data['success'] = True
@@ -331,7 +332,7 @@ class TwoFactorGenerator(APIView):
                     mail.attach_alternative(body, 'text/html')
 
                     try:
-                        # mail.send()
+                        mail.send()
 
                         response_data['status'] = status.HTTP_200_OK
                         response_data['success'] = True
@@ -367,7 +368,7 @@ class TwoFactorGenerator(APIView):
                     mail.attach_alternative(body, 'text/html')
 
                     try:
-                        # mail.send()
+                        mail.send()
 
                         response_data['status'] = status.HTTP_200_OK
                         response_data['success'] = True
@@ -410,7 +411,7 @@ class TwoFactorGenerator(APIView):
                     mail.attach_alternative(body, 'text/html')
 
                     try:
-                        # mail.send()
+                        mail.send()
 
                         response_data['status'] = status.HTTP_200_OK
                         response_data['success'] = True
@@ -527,7 +528,7 @@ class ResetPassword(APIView):
                     mail.attach_alternative(body, 'text/html')
 
                     try:
-                        # mail.send()
+                        mail.send()
 
                         response_data['status'] = status.HTTP_200_OK
                         response_data['success'] = True
@@ -555,7 +556,7 @@ class ResetPassword(APIView):
                     mail.attach_alternative(body, 'text/html')
 
                     try:
-                        # mail.send()
+                        mail.send()
 
                         response_data['status'] = status.HTTP_200_OK
                         response_data['success'] = True
@@ -606,7 +607,7 @@ class ConfirmPasswordResetCode(APIView):
 
                     response_data['status'] = status.HTTP_302_FOUND
                     response_data['success'] = True
-                    response_data['result'] = 'Password OTP is invalid.'
+                    response_data['result'] = 'Password OTP is valid.'
 
                     return Response(data=response_data, status=response_data['status'])
 
@@ -663,7 +664,7 @@ class SetPassword(APIView):
                     mail.attach_alternative(body, 'text/html')
 
                     try:
-                        # mail.send()
+                        mail.send()
 
                         response_data['status'] = status.HTTP_200_OK
                         response_data['success'] = True
@@ -674,7 +675,7 @@ class SetPassword(APIView):
                     # Mail service failure
                     except Exception as e:
                         response_data['status'] = status.HTTP_417_EXPECTATION_FAILED
-                        response_data['result'] = 'An error occurred. Cannot authorize login at the moment.'
+                        response_data['result'] = 'An error occurred. Cannot reset password at the moment.'
                         response_data['success'] = False
                         response_data['error_log'] = f'{e}'
 

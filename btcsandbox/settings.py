@@ -154,10 +154,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'xbtc.sandbox@gmail.com'
-EMAIL_HOST_PASSWORD = "sand'box@99"
+EMAIL_HOST = 'smtp-mail.outlook.com'
+EMAIL_HOST_USER = 'morshyzini@outlook.com'
+EMAIL_HOST_PASSWORD = "cdsudx4$"
 EMAIL_PORT = 587
-DEFAULT_ACCOUNT_FROM_EMAIL = 'Sandbox<xbtc.sandbox@gmail.com>'
+DEFAULT_ACCOUNT_FROM_EMAIL = 'SANDBOX<morshyzini@outlook.com>'
 
 APPEND_SLASH = True
