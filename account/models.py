@@ -11,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 
 from rest_framework.authtoken.models import Token
 
+
 # Account Manager
 class AccountManager(BaseUserManager):
     def create_user(self, username, email, password=None, **other_fields):
@@ -73,11 +74,15 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
         managed = True
-        verbose_name = 'Account'
+        verbose_name        = 'Account'
         verbose_name_plural = 'Accounts'
 
     def __str__(self):
         return self.username
+    
+    def confirm(self):
+        self.is_confirmed = True
+        self.save()
 
     def has_perm(self, perm, obj=None):
         return self.is_admin
@@ -91,6 +96,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
 def generator(sender, instance, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+        Preference.objects.create(user=instance)
 
         try:
             # Grabbing User IP Address
@@ -101,3 +107,72 @@ def generator(sender, instance, created=False, **kwargs):
             instance.ip_address = socket.gethostbyname('localhost')
 
         instance.save()
+
+
+# Account Confirmation OTP
+class AccountConfirmationOTP(models.Model):
+    user                    = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    code                    = models.PositiveIntegerField()
+    is_used                 = models.BooleanField(default=False)
+
+    timestamp               = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        verbose_name        = 'Acccount Confirmation OTP'
+        verbose_name_plural = 'Account Confirmation OTPs'
+
+    def confirm(self):
+        self.is_used = True
+        self.save()
+
+    def __str__(self):
+        return f'{self.user.username}~{self.code}'
+
+
+# Two Factor OTP
+class TwoFactorOTP(models.Model):
+    user                    = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    code                    = models.PositiveIntegerField()
+    is_used                 = models.BooleanField(default=False)
+
+    timestamp               = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Two Factor OTP'
+        verbose_name_plural = 'Two Factor OTPs'
+
+    def __str__(self):
+        return f'{self.user.username}~{self.code}'
+
+
+# Password OTP
+class PasswordOTP(models.Model):
+    user                    = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    code                    = models.PositiveIntegerField()
+    is_used                 = models.BooleanField(default=False)
+
+    timestamp               = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Password OTP'
+        verbose_name_plural = 'Password OTPs'
+
+    def __str__(self):
+        return f'{self.user.uci}~{self.code}'
+
+
+# Preferences
+class Preference(models.Model):
+    user                    = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    # Indicators
+    two_factor_enabled      = models.BooleanField(_('2-Factor Enabled'), default=False)
+    is_email_hidden         = models.BooleanField(default=True)
+    private                 = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = 'Account Preference'
+        verbose_name_plural = 'Account Preferences'
+
+    def __str__(self):
+        return f'{self.user.username}'
