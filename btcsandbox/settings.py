@@ -16,7 +16,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -31,6 +30,7 @@ INSTALLED_APPS = [
     # installed apps
     'wallet',
     'account',
+    'uprofile',
     
     # packages
     'corsheaders',
@@ -155,9 +155,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'sandbox.devvv@gmail.com'
-EMAIL_HOST_PASSWORD = 'blacc123@'
+EMAIL_HOST_USER = 'xbtc.sandbox@gmail.com'
+EMAIL_HOST_PASSWORD = "sand'box@99"
 EMAIL_PORT = 587
-DEFAULT_ACCOUNT_FROM_EMAIL = 'Sandbox<sandbox.devvv@gmail.com>'
+DEFAULT_ACCOUNT_FROM_EMAIL = 'Sandbox<xbtc.sandbox@gmail.com>'
 
 APPEND_SLASH = True
