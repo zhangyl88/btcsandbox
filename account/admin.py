@@ -35,5 +35,46 @@ class AccountAdmin(UserAdmin):
     )
 
 
+# Custom Admin - OTPs
+class OTPAdmin(admin.ModelAdmin):
+    list_display            = ('user', 'code', 'is_used',)
+    readonly_fields         = ('id', 'user', 'code', 'timestamp',)
+    
+    search_fields           = ('code', 'user__email', 'user__username', 'user__ip_address', 'user__id',)
+
+    list_filter             = ('is_used', 'timestamp',)
+    
+    fieldsets               = (
+        (None, {'fields': ('is_used',)}),
+
+        ('Read-Only', {'fields': ('id', 'user', 'code', 'timestamp',)}),
+    )
+
+    add_fieldsets           = (
+        (None, {'fields': ('is_used',)}),
+
+        ('Read-Only', {'fields': ('user', 'code',)}),
+    )
+    
+
+# Custom Admin - Account Preferences
+class PreferenceAdmin(admin.ModelAdmin):
+    list_display            = ('user', 'private',)
+    readonly_fields         = ('id', 'user',)
+
+    search_fields           = ('user__email', 'user__username', 'user__ip_address', 'user__id',)
+
+    fieldsets               = (
+        ('Indicators', {'fields': ('private', 'is_email_hidden', 'two_factor_enabled',)}),
+        ('Read-Only', {'fields': ('id', 'user',)})
+    )
+
+    list_filter             = ('private', 'is_email_hidden', 'two_factor_enabled',)
+
+
 # Model Registrations
 admin.site.register(Account, AccountAdmin)
+admin.site.register(PasswordOTP, OTPAdmin)
+admin.site.register(TwoFactorOTP, OTPAdmin)
+admin.site.register(Preference, PreferenceAdmin)
+admin.site.register(AccountConfirmationOTP, OTPAdmin)
