@@ -1,8 +1,6 @@
 # btc-sandbox
-This is an open-source backend module for trading investment platform.
+This is an open-source backend module for trading investment platform. Project was built with [django-rest-framework](https://www.django-rest-framework.org/) and [python](https://www.python.org/downloads/) and &#8211;&#8211;&#8211;
 
-
-## License
 
 Distributed under the MIT License. See
 [LICENSE](https://en.wikipedia.org/wiki/MIT_License) for more information.
@@ -32,10 +30,17 @@ Launch server
 
     $ python manage.py runserver
 
-## LICENCE & AUTHORS
+
+### Contributors
+<a href="https://github.com/dycode999/btcsandbox/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=dycode999/btcsandbox" height="40"/>
+</a>
+<br>
+
+## Licence & Author
 MIT License
 
-Copyright (c) 2022 dycode999
+Copyright (c) 2022 dycode&#8482;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
