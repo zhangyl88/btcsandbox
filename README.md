@@ -33,14 +33,14 @@ Launch server
 
 ### Contributors
 <a href="https://github.com/dycode999/btcsandbox/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=dycode999/btcsandbox" height="40"/>
+  <img src="https://contrib.rocks/image?repo=dycode999/btcsandbox" height="34"/>
 </a>
 <br>
 
 ## Licence & Author
 MIT License
 
-Copyright (c) 2022 dycode&#8482;
+`Copyright (c) 2022 dycode`
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
