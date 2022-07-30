@@ -37,8 +37,7 @@ Launch server
 <br>
 
 ## Documentation
-`Documentation here`
-<br>
+`TODO:` Documentation would be updated here
 <br>
 
 ## Licence & Author
