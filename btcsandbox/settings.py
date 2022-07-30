@@ -141,7 +141,6 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -159,5 +158,10 @@ EMAIL_HOST_USER = 'morshyzini@outlook.com'
 EMAIL_HOST_PASSWORD = "cdsudx4$"
 EMAIL_PORT = 587
 DEFAULT_ACCOUNT_FROM_EMAIL = 'SANDBOX<morshyzini@outlook.com>'
+
+# Wallet Address
+USDT_ADDR = ""
+BTC_ADDR = ""
+ETH_ADDR = ""
 
 APPEND_SLASH = True
