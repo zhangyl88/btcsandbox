@@ -162,6 +162,7 @@ DEFAULT_ACCOUNT_FROM_EMAIL = 'SANDBOX<morshyzini@outlook.com>'
 # Wallet Address
 BTC_ADDR = "bc1q36m68fqqm0aqmgr39kmsvchun8j7fy84vqc35m"
 USDT_ADDR = "TN3vnn9ozt8dJpJgRAGwTGfUfs1Cq4g3G3"
-ETH_ADDR = ""
+ETH_ADDR = "0xe9b545dcba387fe686a4fa58c6a7fbbb0ebf4da6"
+ETH_API_KEY = "C3JS5PSNW4N1ZPXZICNK56SEF4EZ5ZM3Y1"
 
 APPEND_SLASH = True
