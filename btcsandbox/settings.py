@@ -160,8 +160,8 @@ EMAIL_PORT = 587
 DEFAULT_ACCOUNT_FROM_EMAIL = 'SANDBOX<morshyzini@outlook.com>'
 
 # Wallet Address
-USDT_ADDR = ""
-BTC_ADDR = ""
+BTC_ADDR = "bc1q36m68fqqm0aqmgr39kmsvchun8j7fy84vqc35m"
+USDT_ADDR = "TN3vnn9ozt8dJpJgRAGwTGfUfs1Cq4g3G3"
 ETH_ADDR = ""
 
 APPEND_SLASH = True
