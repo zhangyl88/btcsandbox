@@ -1,4 +1,6 @@
+from ctypes import cast
 import os
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -9,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-an2igov$fpa1%-2o66b-*h(f*9yz%()d(f3sgqu#-4s^#nxe)j'
+SECRET_KEY = config('SECRETE_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -150,23 +152,25 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email Configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp-mail.outlook.com'
-EMAIL_HOST_USER = 'morshyzini@outlook.com'
-EMAIL_HOST_PASSWORD = "cdsudx4$"
-EMAIL_PORT = 587
-DEFAULT_ACCOUNT_FROM_EMAIL = 'SANDBOX<morshyzini@outlook.com>'
+EMAIL_BACKEND = config('EMAIL_BACKEND')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+DEFAULT_ACCOUNT_FROM_EMAIL = config('DEFAULT_ACCOUNT_FROM_EMAIL')
 
 # Wallet Address
 # BITCOIN
-BTC_ADDR = "bc1qtcqe4d42q668uv9h5qetuhkdcwqyl5xjx6hqvw"
+BTC_ADDR = config('BTC_ADDR')
 
 # ETHEREUM
-ETH_ADDR = "0xD0e8e9cE32B43d5Fc2892B8948720900a056111B"
-ETH_API_KEY = "C3JS5PSNW4N1ZPXZICNK56SEF4EZ5ZM3Y1"
+ETH_ADDR = config('ETH_ADDR')
+ETH_API_KEY = config('ETH_API_KEY')
 
 # USD TETHER
-USDT_ADDR = "TXqeezBjRjd2KJhTbJzJm6oZhenzUoVEQT"
+USDT_ADDR = config('USDT_ADDR')
+
+REFERRAL_REWARD = 1
 
 APPEND_SLASH = True

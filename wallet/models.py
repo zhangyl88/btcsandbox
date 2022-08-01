@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 
+from btcsandbox import settings as _settings
+
 
 _TYPE                        = (
     ('DP', 'Deposit'),
@@ -9,12 +11,12 @@ _TYPE                        = (
 )
 
 _CONTRACT                    = (
-    ('Tier 1', 15/100),
-    ('Tier 2', 20/100),
-    ('Tier 3', 25/100),
+    ('LV1', 'Level 1'),
+    ('LV2', 'Level 2'),
+    ('LV3', 'Level 3'),
 )
 
-_MODE                = (
+_MODE                       = (
     ('BTC', 'Bitcoin'),
     ('USDT', 'Tether USD'),
     ('ETH', 'Ethereum'),
@@ -23,14 +25,21 @@ _MODE                = (
 
 class Wallet(models.Model):
     user                    = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="wallet_user")
+    referrals               = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="wallet_referrals", blank=True)
+
     balance                 = models.FloatField(default=0.00)
     profit                  = models.FloatField(default=0.00)
+    r_balance               = models.FloatField(default=0.00)
     
-    level                   = models.CharField(max_length=10, choices=_CONTRACT)
+    level                   = models.CharField(max_length=10, choices=_CONTRACT, default="LV1")
 
     class Meta:
         verbose_name        = "Wallet"
         verbose_name_plural = "Wallets"
+        
+    def update_r_balance(self):
+        self.r_balance += _settings.REFERRAL_REWARD
+        self.save()
     
     # Named Representation
     def __str__(self):
@@ -51,27 +60,27 @@ class Transaction(models.Model):
     reference               = models.SlugField(unique=True)
 
     class Meta:
-        verbose_name        = "Deposit"
-        verbose_name_plural = "Deposits"
+        verbose_name        = "Transaction"
+        verbose_name_plural = "Transactions"
 
     # Named Representation
     def __str__(self):
-        return f'{self.mode} [{self.reference}]'
+        return f'{self.mode}{self.reference}'
 
 
 class RedeemedTransaction(models.Model):
     user                    = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="rt_user")
+    amount                  = models.FloatField(default=0.00)
     
     reference               = models.CharField(max_length=400)
-    deposit_mode            = models.CharField(max_length=5, choices=_MODE)
+    mode                    = models.CharField(max_length=5, choices=_MODE)
     
     timestamp               = models.DateTimeField(auto_now_add=True)
-    confirmed               = models.BooleanField(default=False)
-    
+
     class Meta:
         verbose_name        = "Redeemed Transaction"
         verbose_name_plural = "Redeemed Transactions"
 
     # Named Representation
     def __str__(self):
-        return f'{self.user.username} [{self.reference}]'
+        return f'{self.mode}{self.reference}'

@@ -99,7 +99,7 @@ def gaot_usdt(trnasaction_hash):
     if trnasaction_hash in hashes:
         for i in data['data']:
             if i['hash'] == trnasaction_hash:
-                amount = int(i['amount']) * pow(10, -7)
+                amount = int(i['amount'])
                 def convert_usdt_to_usd(amount):
                     url = "https://api.alternative.me/v2/ticker/?convert=USD"
                     data = requests.get(url).json()

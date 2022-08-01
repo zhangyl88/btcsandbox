@@ -6,9 +6,9 @@ from account.models import *
 
 # Custom Admin - Account
 class AccountAdmin(UserAdmin):
-    list_display            = ('email', 'username', 'is_confirmed', 'ip_address',)
+    list_display            = ('refcode', 'email', 'username', 'is_confirmed', 'ip_address',)
     readonly_fields         = ('id', 'date_joined', 'last_login',)
-    search_fields           = ('email', 'username', 'ip_address', 'id',)
+    search_fields           = ('refcode', 'email', 'username', 'ip_address', 'id',)
 
     ordering                = [('-date_joined'),]
 
@@ -16,7 +16,7 @@ class AccountAdmin(UserAdmin):
     list_filter             = ('is_active', 'is_confirmed', 'date_joined',)
   
     fieldsets               = (
-        ('Basic Informations', {'fields': ('email', 'username', 'fullname',)}),
+        ('Basic Informations', {'fields': ('refcode', 'email', 'username', 'fullname',)}),
 
         ('Security Required', {'fields': ('password',)}),
 
@@ -30,7 +30,7 @@ class AccountAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'username', 'passcode', 'password1', 'password2',)
+            'fields': ('email', 'username', 'password1', 'password2',)
         }),
     )
 

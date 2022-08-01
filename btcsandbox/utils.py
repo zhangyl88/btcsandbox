@@ -1,10 +1,6 @@
 import hashlib, random
 
-from account.models import Account
-
-
-### key variables
-emails                          = [i.email for i in Account.objects.all()]
+from django.utils import timezone
 
 
 ### lambdas
@@ -31,3 +27,24 @@ def set_username(username, model):
 def set_email(email, model):
     model.email = email
     model.save()
+    
+
+def gen_two(number):
+    number = str(number)
+
+    if len(number) == 1:
+        return f'0{number}'
+    return number
+
+def refcode():
+    prefix = str(timezone.now().microsecond)[:4]
+    render_year = str(timezone.now().year)[2:]
+    render_month = str(gen_two(timezone.now().month))
+    render_day = str(gen_two(timezone.now().day))
+    render_hour = str(gen_two(timezone.now().hour))
+    render_minute = str(gen_two(timezone.now().minute))
+    render_second = str(gen_two(timezone.now().second))
+
+    uci = render_year + render_month + render_day + render_hour + render_minute + render_second
+
+    return f'{prefix}{uci}'

@@ -11,6 +11,10 @@ from django.utils.translation import gettext_lazy as _
 
 from rest_framework.authtoken.models import Token
 
+from wallet.models import Wallet
+
+from btcsandbox.utils import refcode
+
 
 # Account Manager
 class AccountManager(BaseUserManager):
@@ -51,6 +55,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     username                = models.CharField(_('Username'), max_length=50, unique=True)
     email                   = models.EmailField(_('Email'), unique=True)
     fullname                = models.CharField(_('Full Name'), max_length=100, blank=True, null=True)
+    refcode                 = models.CharField(max_length=20, unique=True) 
 
 
     # Auto Generated
@@ -78,7 +83,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = 'Accounts'
 
     def __str__(self):
-        return self.username
+        return self.refcode
     
     def confirm(self):
         self.is_confirmed = True
@@ -97,7 +102,10 @@ def generator(sender, instance, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
         Preference.objects.create(user=instance)
+        Wallet.objects.create(user=instance)
 
+        instance.refcode = refcode()
+        
         try:
             # Grabbing User IP Address
             ip_addr = requests.get('https://api.ipify.org/').text

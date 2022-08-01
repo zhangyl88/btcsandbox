@@ -2,15 +2,18 @@ from rest_framework import serializers
 
 from account.models import Account, TwoFactorOTP
 
+from wallet.models import Wallet
+
 
 # Create Account Serializer
 class CreateAccountSerializer(serializers.ModelSerializer):
 
     password2               = serializers.CharField(style={'input_type' : 'password'}, write_only=True)
+    invite_code             = serializers.CharField(write_only=True) 
 
     class Meta:
         model               = Account
-        fields              = ['email', 'password', 'password2']
+        fields              = ['email', 'password', 'password2', 'invite_code']
         
         extra_kwargs = {'password' : {'write_only' : True}}
 
@@ -21,16 +24,42 @@ class CreateAccountSerializer(serializers.ModelSerializer):
 
         password            = self.validated_data['password']
         password2           = self.validated_data['password2']
+        invite_code         = self.validated_data['invite_code']
+        
+        if invite_code != "None":
+            try:
+                ref_account = Account.objects.get(refcode=invite_code)
+                wallet      = Wallet.objects.get(user=ref_account)
+                                
+                if password != password2:
+                    raise serializers.ValidationError({'password' : 'Password must match.'})
 
-        if password != password2:
-            raise serializers.ValidationError({'password' : 'Password must match.'})
+                else:
+                    # Create account
+                    account.set_password(str(password))
+                    account.username = account.username.lower()
+                    account.save()
+                    
+                    # Update Referral account
+                    wallet.referrals.add(account)
+                    wallet.update_r_balance()
 
+                    return account
+                
+            except (Account.DoesNotExist, Wallet.DoesNotExist):
+                    raise serializers.ValidationError({'refcode' : 'Refcode is not valid.'})
+        
         else:
-            account.set_password(str(password))
-            account.username = account.username.lower()
-            account.save()
+            if password != password2:
+                raise serializers.ValidationError({'password' : 'Password must match.'})
 
-            return account
+            else:
+                # Create account
+                account.set_password(str(password))
+                account.username = account.username.lower()
+                account.save()
+
+                return account
 
 
 # Activate Account Serializer

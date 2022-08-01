@@ -13,8 +13,9 @@ from rest_framework.authentication import TokenAuthentication
 
 from btcsandbox.utils import (
     set_username, set_email, 
-    otp_gen, tfa_gen, generate_username, search_list, emails,
+    otp_gen, tfa_gen, generate_username, search_list,
 )
+from btcsandbox.glo_vars import emails
 
 from account.serializers import *
 from account.models import *
