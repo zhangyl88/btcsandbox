@@ -28,7 +28,7 @@ Install requiements and run migrations
 Launch server
 
     $ python manage.py runserver
-
+<br>
 
 ### Contributors
 <a href="https://github.com/dycode999/btcsandbox/graphs/contributors">
@@ -36,7 +36,7 @@ Launch server
 </a>
 <br>
 
-## Documentation
+## Documentation and Usage
 `TODO:` Documentation would be updated here
 <br>
 
