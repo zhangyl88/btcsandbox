@@ -17,7 +17,6 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 # Application definition
-
 INSTALLED_APPS = [
     # default apps
     'django.contrib.admin',
@@ -160,9 +159,14 @@ EMAIL_PORT = 587
 DEFAULT_ACCOUNT_FROM_EMAIL = 'SANDBOX<morshyzini@outlook.com>'
 
 # Wallet Address
-BTC_ADDR = "bc1q36m68fqqm0aqmgr39kmsvchun8j7fy84vqc35m"
-USDT_ADDR = "TN3vnn9ozt8dJpJgRAGwTGfUfs1Cq4g3G3"
-ETH_ADDR = "0xe9b545dcba387fe686a4fa58c6a7fbbb0ebf4da6"
+# BITCOIN
+BTC_ADDR = "bc1qtcqe4d42q668uv9h5qetuhkdcwqyl5xjx6hqvw"
+
+# ETHEREUM
+ETH_ADDR = "0xD0e8e9cE32B43d5Fc2892B8948720900a056111B"
 ETH_API_KEY = "C3JS5PSNW4N1ZPXZICNK56SEF4EZ5ZM3Y1"
+
+# USD TETHER
+USDT_ADDR = "TXqeezBjRjd2KJhTbJzJm6oZhenzUoVEQT"
 
 APPEND_SLASH = True
