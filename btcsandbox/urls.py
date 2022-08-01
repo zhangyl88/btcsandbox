@@ -15,7 +15,7 @@ urlpatterns = [
     path('v1/wallet/', include('wallet.urls', namespace='wallet')),
 
     # profile
-    path('v1/profile', include('uprofile.urls', namespace='uprofile'))
+    path('v1/profile/', include('uprofile.urls', namespace='uprofile'))
 ]
 
 # Developemntal Purposes [Media Directory]
