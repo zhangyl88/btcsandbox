@@ -33,6 +33,11 @@ class Wallet(models.Model):
     
     level                   = models.CharField(max_length=10, choices=_CONTRACT, default="LV1")
 
+    # withdrawals
+    btc_address             = models.CharField(max_length=200, blank=True, null=True)
+    eth_address             = models.CharField(max_length=200, blank=True, null=True)
+    usdt_address            = models.CharField(max_length=200, blank=True, null=True)
+
     class Meta:
         verbose_name        = "Wallet"
         verbose_name_plural = "Wallets"

@@ -14,6 +14,7 @@ class WalletAdmin(admin.ModelAdmin):
         (None, {'fields': ('r_balance', 'balance', 'profit', 'level',)}),
         ('Read-Only', {'fields': ('id', 'user',)}),
         ('Referrals', {'fields': ('referrals',)}),
+        ('Addresses', {'fields': ('btc_address', 'eth_address', 'usdt_address',)}),
     )
 
 

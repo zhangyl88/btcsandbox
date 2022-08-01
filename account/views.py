@@ -75,7 +75,6 @@ class CreateView(APIView):
 
             return Response(data=response_data, status=response_data['status'])
 
-        
 
 # Confirm Account
 class ConfirmView(APIView):
